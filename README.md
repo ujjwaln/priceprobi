@@ -1,2 +1,2 @@
 # priceprobi
-Commodity prices monitoring app
+Agricultural Commodity prices monitoring app
