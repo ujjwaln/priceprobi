@@ -1,18 +1,26 @@
-__author__ = 'ujjwal'
+# using Eve library to create rest api
+# this file runs the eve application and declares additional endpoints
+# for FB authentication
 
 from flask import make_response, request, jsonify, json
 from eve import Eve
 from priceprobi.utils import get_env
 from priceprobi.config import get_config
-from auth import get_pp_user
+from auth import get_pp_user, PPApiBasicAuth
 from priceprobi.utils import get_magic_user, Encoder
 from . import crossdomain
 
 
+__author__ = 'ujjwal'
+
+#get environmnet DEVELOPMENT or PRODUCTION
 env = get_env()
 api_settings = get_config(env)
-#app = Eve(settings=api_settings, auth=CfApiBasicAuth())
-app = Eve(settings=api_settings)
+
+#instatiate Eve with dev or prod settings and basic http authentication
+app = Eve(settings=api_settings, auth=PPApiBasicAuth)
+
+#use custom json serialization since default flask serializer doesn't handle datetimes
 app.json_encoder = Encoder
 
 
